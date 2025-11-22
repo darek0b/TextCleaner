@@ -1,48 +1,36 @@
 {
-  "name": "copy-of-ai-text-remover-2",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "TextCleaner",
+  "version": "1.0.0",
+  "description": "AI text remover - wrapped for Electron",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "start": "electron .",
+    "build": "vite build && electron-builder",
     "preview": "vite preview",
-    "start": "vite",
-    "electron": "electron .",
-    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && electron .\"",
-    "electron-build": "electron-builder"
+    "electron:dev": "concurrently \"npm:dev\" \"wait-on http://localhost:5173 && ELECTRON_START_URL=http://localhost:5173 electron .\"",
+    "electron:build": "npm run build && electron-builder --publish never",
+    "build:win": "electron-builder --win --x64",
+    "build:mac": "electron-builder --mac"
   },
-  "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "@google/genai": "^1.20.0"
-  },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "@vitejs/plugin-react": "^5.0.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0",
-    "electron": "^28.0.0",
-    "electron-builder": "^24.6.0",
     "concurrently": "^8.2.0",
-    "wait-on": "^7.0.1"
+    "electron": "^26.0.0",
+    "electron-builder": "^24.6.0",
+    "wait-on": "^8.1.0",
+    "vite": "^5.0.0"
   },
-  "main": "electron.js",
   "build": {
-    "appId": "com.ai.text.remover",
-    "productName": "copy-of-ai-text-remover-2",
-    "files": [
-      "dist/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "directories": {
-      "output": "release"
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ]
-    }
-  }
+    "appId": "com.textcleaner.app",
+    "productName": "TextCleaner",
+    "directories": { "buildResources": "build" },
+    "files": ["dist/**/*", "electron/**/*", "package.json"],
+    "win": { "target": ["nsis","zip"] },
+    "mac": { "target": ["dmg","zip"] },
+    "linux": { "target": ["AppImage","deb"] },
+    "nsis": { "oneClick": false, "perMachine": false }
+  },
+  "dependencies": {}
 }
