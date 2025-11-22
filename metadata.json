@@ -1,0 +1,5 @@
+{
+  "name": "Copy of AI Text Remover 2",
+  "description": "An intelligent tool that uses AI to remove text from images. Upload an image, and the AI will automatically detect and erase the text, providing a clean version of your picture.",
+  "requestFramePermissions": []
+}
